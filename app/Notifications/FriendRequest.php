@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Auth;
 
 class FriendRequest extends Notification
 {
@@ -54,8 +55,13 @@ class FriendRequest extends Notification
      */
     public function toArray($notifiable)
     {
+        $url = url('/users'.'/'.Auth::id());
+        $name = Auth::user()->firstName.' '.Auth::user()->lastName;
         return [
-            'message' => 'Masz zaproszenie do znajomych'
+            'message' => 'Masz zaproszenie do znajomych od <a href="'.$url.'">'.$name.'</a>',
+            'user_firstName' => Auth::user()->firstName,
+            'user_lastName' => Auth::user()->lastName,
+            'user_id' => Auth::id()
         ];
     }
 }

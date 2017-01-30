@@ -10,7 +10,7 @@
                     @if(Auth::user()->notifications->count())
                       @foreach (Auth::user()->notifications as $notification)
                         <div class="col-xs-12 {{ !is_null($notification->read_at) ? 'notification_muted': null }}">
-                          <div class="pull-left">{{ $notification->data['message'] }}</div>
+                          <div class="pull-left">{!! $notification->data['message'] !!}</div>
                           <div class="pull-right">
                             @if(is_null($notification->read_at))
                             <form id="notification_form_update" method="post" action="{{ url('/notifications'.'/'.$notification->id) }}">
