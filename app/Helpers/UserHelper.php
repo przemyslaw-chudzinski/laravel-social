@@ -42,6 +42,11 @@ class UserHelper {
 
   }
 
+  static function is_liked()
+  {
+    
+  }
+
 
 
 }

@@ -30,5 +30,5 @@ Route::group(['middleware' => ['auth']],function(){
   Route::get('/wall','WallsController@index');
   Route::resource('/comments','CommentsController',['except' => ['index','create','show']]);
   Route::post('/likes','LikesController@add');
-  Route::delete('/likes/{id}','LikesController@destroy');
+  Route::delete('/likes','LikesController@destroy');
 });
