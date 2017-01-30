@@ -18,7 +18,7 @@ class CheckCommentPermission
     public function handle($request, Closure $next)
     {
       $comment_user_id = Comment::findOrFail($request->comment)->user_id;
-      if(Auth::user()->id !== $comment_user_id){
+      if(Auth::user()->id !== $comment_user_id && Auth::user()->role->type !== 'admin'){
         abort(403,'Brak dostępu');
       }
       return $next($request);

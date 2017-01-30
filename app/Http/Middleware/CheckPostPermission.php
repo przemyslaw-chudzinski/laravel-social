@@ -18,7 +18,7 @@ class CheckPostPermission
     public function handle($request, Closure $next)
     {
         $post_user_id = Post::findOrFail($request->post)->user_id;
-        if(Auth::user()->id !==  $post_user_id){
+        if(Auth::user()->id !==  $post_user_id && Auth::user()->role->type !== 'admin'){
           abort(403,'Brak dostępu');
         }
         return $next($request);
