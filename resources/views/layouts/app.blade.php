@@ -59,6 +59,9 @@
                             <li><a href="{{ url('/login') }}">Login</a></li>
                             <li><a href="{{ url('/register') }}">Register</a></li>
                         @else
+                            <li>
+                              <a href="{{ url('/notifications') }}">Notifications @if(Auth::user()->unreadNotifications->count())<span class="label label-primary">{{ Auth::user()->unreadNotifications->count() }}</span>@endif</a>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->firstName }} {{ Auth::user()->lastName }} <span class="caret"></span>

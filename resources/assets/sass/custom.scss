@@ -6,17 +6,12 @@
   opacity: .3 !important;
 }
 
-.post_trashed {
+.notification_muted,.comment_trashed ,.post_trashed {
   @include opacity;
   transition: opacity .3s ease-out;
 }
 
-.comment_trashed {
-  @include opacity;
-  transition: opacity .3s ease-out;
-}
-
-.comment_trashed, .post_trashed {
+.comment_trashed, .post_trashed,.notification_muted {
   &:hover {
     opacity: 1 !important;
   }

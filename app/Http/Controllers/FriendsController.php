@@ -7,6 +7,7 @@ use App\Friend;
 use App\Helpers\UserHelper as Helper;
 use Auth;
 use App\User;
+use App\Notifications\FriendRequest;
 
 class FriendsController extends Controller
 {
@@ -39,6 +40,7 @@ class FriendsController extends Controller
           'user_id' => Auth::user()->id,
           'friend_id' => $id
         ]);
+      User::findOrFail($id)->notify(new FriendRequest);
       }
       else {
         $this->accept($id);

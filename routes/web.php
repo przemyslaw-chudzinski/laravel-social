@@ -31,4 +31,6 @@ Route::group(['middleware' => ['auth']],function(){
   Route::resource('/comments','CommentsController',['except' => ['index','create','show']]);
   Route::post('/likes','LikesController@add');
   Route::delete('/likes','LikesController@destroy');
+  Route::get('/notifications','NotificationsController@index');
+  Route::patch('/notifications/{id}','NotificationsController@update');
 });
