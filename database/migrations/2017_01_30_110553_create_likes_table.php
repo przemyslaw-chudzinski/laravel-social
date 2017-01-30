@@ -22,6 +22,8 @@ class CreateLikesTable extends Migration
             $table->foreign('post_id')->references('id')->on('posts');
             $table->foreign('comment_id')->references('id')->on('comments');
             $table->timestamps();
+            $table->unique(['user_id','comment_id']);
+            $table->unique(['user_id','post_id']);
         });
     }
 
