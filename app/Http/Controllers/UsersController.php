@@ -59,11 +59,21 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $template_data = [];
         if(Auth::user()->role->type === 'admin'){
-          $posts = Post::withTrashed()->with('comments.user')->where('user_id',$id)->orderBy('created_at','desc')->paginate(20);
+          $posts = Post::withTrashed()
+                    ->with('comments.user')
+                    ->with('comments.likes')
+                    ->where('user_id',$id)
+                    ->orderBy('created_at','desc')
+                    ->paginate(20);
           $template_data = compact('user','posts');
         }
         else {
-          $posts = Post::with('comments.user')->where('user_id',$id)->orderBy('created_at','desc')->paginate(20);
+          $posts = Post::with('comments.user')
+                    ->with('comments.user')
+                    ->with('comments.likes')
+                    ->where('user_id',$id)
+                    ->orderBy('created_at','desc')
+                    ->paginate(20);
           $template_data = compact('user','posts');
         }
         return view('users.show',$template_data);

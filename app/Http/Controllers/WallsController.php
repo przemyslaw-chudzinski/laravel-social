@@ -18,11 +18,23 @@ class WallsController extends Controller
       }
       $template_data = [];
       if(Auth::user()->role->type === 'admin'){
-        $posts = Post::withTrashed()->with('comments.user')->whereIn('user_id',$friends_ids_array)->orderBy('created_at','desc')->paginate(20);
+        $posts = Post::withTrashed()
+                ->with('comments.user')
+                ->with('likes')
+                ->with('comments.likes')
+                ->whereIn('user_id',$friends_ids_array)
+                ->orderBy('created_at','desc')
+                ->paginate(20);
         $template_data = compact('posts');
       }
       else {
-        $posts = Post::with('comments.user')->whereIn('user_id',$friends_ids_array)->orderBy('created_at','desc')->paginate(20);
+        $posts = Post::with('comments.user')
+                ->with('comments.user')
+                ->with('likes')
+                ->with('comments.likes')
+                ->whereIn('user_id',$friends_ids_array)
+                ->orderBy('created_at','desc')
+                ->paginate(20);
         $template_data = compact('posts');
       }
       return view('walls.index',$template_data);

@@ -24,7 +24,10 @@
       <div>
         {{ $post->content }}
       </div>
-      <hr>
+      <br>
+      @include('components.post_like')
+
+      <hr style="margin-top: 10px;">
       @include('components.add_comment_form')
       <hr>
       @include('components.comments_list')

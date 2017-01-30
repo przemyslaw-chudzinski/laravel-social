@@ -18,6 +18,7 @@
          @endif
         </h4>
         {{ $comment->content }}
+         @include('components.comment_like')
       </div>
     </div>
   @endforeach
