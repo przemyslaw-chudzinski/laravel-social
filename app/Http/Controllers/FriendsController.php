@@ -8,6 +8,7 @@ use App\Helpers\UserHelper as Helper;
 use Auth;
 use App\User;
 use App\Notifications\FriendRequest;
+use App\Notifications\FriendRequestAccepted;
 
 class FriendsController extends Controller
 {
@@ -55,7 +56,7 @@ class FriendsController extends Controller
         'friend_id' => Auth::user()->id,
         'accepted' => false
       ])->update(['accepted' => true]);
-
+      User::findOrFail($id)->notify(new FriendRequestAccepted);
       return back();
 
     }
