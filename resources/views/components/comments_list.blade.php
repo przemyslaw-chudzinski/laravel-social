@@ -8,7 +8,7 @@
       </div>
       <div class="media-body">
         <h4 class="media-heading">{{ $comment->user->firstName }} {{ $comment->user->lastName }}
-          @if($comment->user_id === Auth::id())
+          @if($comment->user_id === Auth::id() || Auth::user()->role->type === 'admin')
            <a href="{{ url('comments'.'/'.$comment->id.'/edit') }}">Edytuj</a>
            <form action="{{ url('comments'.'/'.$comment->id) }}" method="post" class="pull-right">
              {{ csrf_field() }}

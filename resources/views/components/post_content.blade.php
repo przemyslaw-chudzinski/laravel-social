@@ -8,7 +8,7 @@
         </div>
         <div class="media-body">
           <h4 class="media-heading"><strong>{{ $post->user->firstName }} {{ $post->user->lastName }}</strong>
-            @if(Auth::user()->id === $post->user_id)
+            @if(Auth::user()->id === $post->user_id || Auth::user()->role->type === 'admin')
               <a href="{{ url('posts'.'/'.$post->id.'/edit') }}">Edytuj</a>
               <form action="{{ url('posts'.'/'.$post->id) }}" method="post" class="pull-right">
                 {{ csrf_field() }}
