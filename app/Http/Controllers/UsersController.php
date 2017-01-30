@@ -57,7 +57,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $posts = Post::with('comments.user')->where('user_id',$id)->orderBy('created_at','desc')->paginate(20);
+        $posts = Post::with('comments.user')->with('comments.likes')->where('user_id',$id)->orderBy('created_at','desc')->paginate(20);
         $template_data = compact('user','posts');
         return view('users.show',$template_data);
     }

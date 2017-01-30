@@ -16,7 +16,7 @@ class WallsController extends Controller
       foreach ($friends as $friend) {
         $friends_ids_array[] = $friend->id;
       }
-      $posts = Post::with('comments.user')->whereIn('user_id',$friends_ids_array)->orderBy('created_at','desc')->paginate(20);
+      $posts = Post::with('comments.user')->with('likes')->with('comments.likes')->whereIn('user_id',$friends_ids_array)->orderBy('created_at','desc')->paginate(20);
       $template_data = compact('posts');
       return view('walls.index',$template_data);
     }
