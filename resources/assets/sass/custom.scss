@@ -1,3 +1,23 @@
 #usersSearchForm input {
   width: 300px;
 }
+
+@mixin opacity {
+  opacity: .3 !important;
+}
+
+.post_trashed {
+  @include opacity;
+  transition: opacity .3s ease-out;
+}
+
+.comment_trashed {
+  @include opacity;
+  transition: opacity .3s ease-out;
+}
+
+.comment_trashed, .post_trashed {
+  &:hover {
+    opacity: 1 !important;
+  }
+}

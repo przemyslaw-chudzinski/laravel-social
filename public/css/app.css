@@ -7692,4 +7692,20 @@ button.close {
   width: 300px;
 }
 
+.post_trashed {
+  opacity: .3 !important;
+  -webkit-transition: opacity .3s ease-out;
+  transition: opacity .3s ease-out;
+}
+
+.comment_trashed {
+  opacity: .3 !important;
+  -webkit-transition: opacity .3s ease-out;
+  transition: opacity .3s ease-out;
+}
+
+.comment_trashed:hover, .post_trashed:hover {
+  opacity: 1 !important;
+}
+
 /*# sourceMappingURL=app.css.map */

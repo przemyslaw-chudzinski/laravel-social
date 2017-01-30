@@ -16,8 +16,15 @@ class WallsController extends Controller
       foreach ($friends as $friend) {
         $friends_ids_array[] = $friend->id;
       }
-      $posts = Post::with('comments.user')->whereIn('user_id',$friends_ids_array)->orderBy('created_at','desc')->paginate(20);
-      $template_data = compact('posts');
+      $template_data = [];
+      if(Auth::user()->role->type === 'admin'){
+        $posts = Post::withTrashed()->with('comments.user')->whereIn('user_id',$friends_ids_array)->orderBy('created_at','desc')->paginate(20);
+        $template_data = compact('posts');
+      }
+      else {
+        $posts = Post::with('comments.user')->whereIn('user_id',$friends_ids_array)->orderBy('created_at','desc')->paginate(20);
+        $template_data = compact('posts');
+      }
       return view('walls.index',$template_data);
     }
 }

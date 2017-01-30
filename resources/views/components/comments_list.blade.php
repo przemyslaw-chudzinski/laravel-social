@@ -1,6 +1,6 @@
 @if($post->comments)
   @foreach ($post->comments as $comment)
-    <div class="media">
+    <div class="media {{ $comment->trashed() ? 'comment_trashed' : null }}">
       <div class="media-left">
         <a href="{{ url('users'.'/'.$comment->user->id) }}" class="post_comment_user_avatar">
           @include('components.post_user_avatar',['user' => $comment->user])

@@ -1,4 +1,4 @@
-<div class="panel panel-default" id="post-{{ $post->id }}" class="single-post">
+<div class="panel panel-default {{ $post->trashed() ? 'post_trashed': null }}" id="post-{{ $post->id }}" class="single-post">
     <div class="panel-body">
       <div class="media">
         <div class="media-left single-post-user-avatar">
