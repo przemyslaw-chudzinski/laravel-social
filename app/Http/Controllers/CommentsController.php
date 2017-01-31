@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Comment;
 use Auth;
+use App\Notifications\PostComment;
+use App\Post;
+use App\User;
 
 class CommentsController extends Controller
 {
@@ -44,12 +47,17 @@ class CommentsController extends Controller
     {
         $this->_validate($request);
         $data = $request->all();
+        $post = Post::findOrFail($data['post_id']);
         $data_to_update = [
           'user_id' => Auth::id(),
           'content' => $data['post_'.$data['post_id'].'_comment_content'],
           'post_id' => $data['post_id']
         ];
-        Comment::create($data_to_update);
+        $comment = Comment::create($data_to_update);
+
+        if($post->user_id !== Auth::id()){
+          User::findOrFail($post->user_id)->notify(new PostComment($data['post_id'],$comment->id));
+        }
         return back();
     }
 
