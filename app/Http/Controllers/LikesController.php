@@ -21,19 +21,24 @@ class LikesController extends Controller
       ];
       $object = null;
       $type = "";
+      $id = null;
       Like::create($data);
-
       if(!empty($data['post_id'])){
-        $object = Post::findOrFail($data['post_id'])->first();
+        $object = Post::findOrFail($data['post_id']);
         $type = "post";
-        User::findOrFail($object->user_id)->notify(new Liked($object,$type));
+        $id = $object->user_id;
+        if($id != $data['user_id']){
+          User::findOrFail($id)->notify(new Liked($object,$type));
+        }
       }
-      // if(!empty($data['comment_id'])){
-      //   $object = Comment::findOrFail($data['comment_id'])->first();
-      //   // $post = Post::findOrFail();
-      //   $type = "comment";
-      //   User::findOrFail($object->user->id)->notify(new Liked($object,$type));
-      // }
+      if(!empty($data['comment_id'])){
+        $object = Comment::findOrFail($data['comment_id']);
+        $id = Post::findOrFail($object->post_id)->first()->user_id;
+        $type = "comment";
+        if($object->user_id != $data['user_id']){
+          User::findOrFail($id)->notify(new Liked($object,$type));
+        }
+      }
 
       return back();
     }

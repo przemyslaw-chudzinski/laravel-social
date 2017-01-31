@@ -64,11 +64,11 @@ class Liked extends Notification
 
         $name = Auth::user()->firstName.' '.Auth::user()->lastName;
         $user_url = url('/users'.'/'.Auth::id());
-        // if($this->type === 'comment')
-        // {
-        //   $url = ""; //TODO
-        //   $message = "Użytkownik <a href='".$user_url."'>".$name."</a> polubił Twój komentarz w  <a href='".$url."'>poście</a>";
-        // }
+        if($this->type === 'comment')
+        {
+          $url = ""; //TODO
+          $message = "Użytkownik <a href='".$user_url."'>".$name."</a> polubił Twój komentarz w  <a href='".$url."'>poście</a>";
+        }
         if($this->type === 'post'){
           $url = url('/wall#post-'.$this->object->id);
           $message = "Użytkownik <a href='".$user_url."'>".$name."</a> polubił Twój <a href='".$url."'>post</a>";
